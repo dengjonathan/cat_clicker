@@ -22,15 +22,15 @@ $('document').ready(function() {
             clicks: 0
         }],
 
-        getCurrentCat: function(name) {
+        getCat: function(name) {
             return $.grep(this.cats, function(e) {
-                return e.name == name
+                return e.name == name;
             })[0];
         },
 
         getAllNames: function() {
             var array = [];
-            for (i=0; i<this.cats.length;i++) {
+            for (i = 0; i < this.cats.length; i++) {
                 array.push(this.cats[i].name);
             }
             return array;
@@ -45,15 +45,16 @@ $('document').ready(function() {
         },
         setCurrentCat: function(name) {
             this.currentCat = name;
-            return model.getCurrentCat(name);
+            return model.getCat(name);
         },
         incrementCounter: function() {
-            var cat = model.getCurrentCat(name);
-            cat.clocks += 1;
+            var cat = model.getCat(this.currentCat);
+            cat.clicks += 1;
             return cat.clicks;
         },
         init: function() {
             listView.init();
+            picView.init();
         }
     };
 
@@ -61,38 +62,39 @@ $('document').ready(function() {
     var listView = {
         init: function() {
             var cats = controller.getAllNames();
-            console.log(cats);
             for (var i = 0; i < cats.length; i++) {
                 var cat = cats[i];
-                console.log(cat);
                 var entry = $(document.createElement('li')).text(cat).attr('id', cat);
-                entry.attr('class', 'cat-name')
-                console.log(entry);
+                entry.attr('class', 'cat-name');
                 $('div.cat-list > ul').append(entry);
-            };
+            }
         }
     };
 
     var picView = {
-        display: function() {
+        init: function() {
+            // display cat pic on click
             $('li.cat-name').click(function() {
                 $('div.cat-pics').empty();
                 var name = this.id;
-                var cat = getCurrentCat(name);
-                var name = $(document.createElement('h2')).text(cat.name);
+                console.log('this function called');
+                console.log(name);
+                var cat = controller.setCurrentCat(name);
+                console.log(name);
+                var name_input = $(document.createElement('h2')).text(cat.name);
                 var clicks = $(document.createElement('p')).text(cat.clicks).attr('id', cat.name);
                 var image = $(document.createElement('img')).attr('src', cat.pic_url).attr('id', cat.name);
-                $('div.cat-pics').append(name).append(clicks).append(image).attr('id', cat.name);
+                $('div.cat-pics').append(name_input).append(clicks).append(image).attr('id', cat.name);
             });
-        },
-        incrementCounter: function() {
+
+            //increment number on click
             $('div.cat-pics').click(function() {
-                var clicks = model.incrementCounter();
-                $('p#' + id).text(cat.clicks);
+                var id = this.id;
+                var clicks = controller.incrementCounter();
+                $('p#' + id).text(clicks);
             });
         }
-    }
+    };
 
-    controller.init()
-
+    controller.init();
 });
