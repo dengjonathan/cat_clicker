@@ -9,7 +9,7 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href='styles.css'>
 </head>
 
 <body>
@@ -18,5 +18,16 @@
         <div class='cat-list col-md-4'><ul>
         </ul></div>
         <div class='cat-pics col-md-8'>Loading from JS</div>
+    </div>
+  <!-- //TODO: add form and fill inputs with default values’ -->
+  <button class='admin'>Admin</button>
+    <div class ='admin hidden'>
+        This form will be used to submit updated info.</br>
+        Name <input name = 'name' /> </br>
+        Clicks <input name = 'clicks'/></br>
+        Pic_URL<input name='pic_url' /></br>
+        <button id='submit'>Submit</button>
+        <button>Cancel</button>
+
     </div>
 </body>
